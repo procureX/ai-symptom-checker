@@ -1,0 +1,15 @@
+# Node modules
+symptom-checker-frontend/node_modules/
+
+# Build folders
+symptom-checker-frontend/build/
+symptom-checker-backend/target/
+
+# IDE files
+*.iml
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+
