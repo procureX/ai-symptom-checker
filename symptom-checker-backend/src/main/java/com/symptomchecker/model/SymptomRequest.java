@@ -1,4 +1,4 @@
-public class symptomRequest {
+public class SymptomRequest {
     private String symptoms;
 
     public String getSymptoms() {

@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class symptomResponse {
+public class SymptomResponse {
     private List<String> conditions;
     private String urgency;
 
