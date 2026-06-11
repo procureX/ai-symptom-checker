@@ -1,47 +1,42 @@
 import { useState } from "react";
+import SymptomForm from "./components/SymptomForm";
+import ResultCard from "./components/ResultCard";
+import "./App.css";
+
 
 function App() {
-  const [symptoms, setSymptoms] = useState("");
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async () => {
-    const response = await fetch("http://localhost:8080/api/symptoms", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ symptoms }),
-    });
+  const handleSymptomSubmit = async (symptoms) => {
+    setLoading(true);
+    setResult(null);
 
-    const data = await response.json();
-    setResult(data);
+    try {
+      const response = await fetch("http://localhost:8080/api/symptoms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ symptoms }),
+      });
+
+      const data = await response.json();
+      setResult(data);
+    } catch (error) {
+      alert("Error connecting to backend");
+    }
+
+    setLoading(false);
   };
 
   return (
     <div style={{ padding: "2rem", maxWidth: "600px", margin: "auto" }}>
       <h2>AI Symptom Checker</h2>
 
-      <textarea
-        rows="4"
-        style={{ width: "100%" }}
-        placeholder="Describe your symptoms..."
-        value={symptoms}
-        onChange={(e) => setSymptoms(e.target.value)}
-      />
+      <SymptomForm onSubmit={handleSymptomSubmit} />
 
-      <button onClick={handleSubmit} style={{ marginTop: "1rem" }}>
-        Submit
-      </button>
+      {loading && <p>Analyzing symptoms…</p>}
 
-      {result && (
-        <div style={{ marginTop: "2rem", padding: "1rem", border: "1px solid #ccc" }}>
-          <h3>Possible Conditions:</h3>
-          <ul>
-            {result.conditions.map((c, i) => (
-              <li key={i}>{c}</li>
-            ))}
-          </ul>
-          <p><strong>Urgency:</strong> {result.urgency}</p>
-        </div>
-      )}
+      {result && <ResultCard result={result} />}
     </div>
   );
 }
