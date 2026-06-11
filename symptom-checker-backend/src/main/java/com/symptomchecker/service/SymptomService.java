@@ -1,13 +1,14 @@
-package com.yourproject.service;
+package com.procurex.symptomchecker.service;
 
-import com.yourproject.model.SymptomRequest;
-import com.yourproject.model.SymptomResponse;
+import com.procurex.symptomchecker.model.SymptomRequest;
+import com.procurex.symptomchecker.model.SymptomResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SymptomService {
+
     private final AiService aiService;
 
     public SymptomService(AiService aiService) {
@@ -15,9 +16,12 @@ public class SymptomService {
     }
 
     public SymptomResponse analyzeSymptoms(SymptomRequest request) {
+
         String aiOutput = aiService.getAiAnalysis(request.getSymptoms());
+
         return new SymptomResponse(
-            List.of("Common cold", "Flu"),
-            "Low");
+                List.of("Common cold", "Flu"),
+                "Low"
+        );
     }
 }

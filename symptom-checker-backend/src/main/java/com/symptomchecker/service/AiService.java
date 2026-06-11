@@ -1,4 +1,4 @@
-package com.yourproject.service;
+package com.procurex.symptomchecker.service;
 
 import org.springframework.stereotype.Service;
 
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 public class AiService {
 
     public String getAiAnalysis(String symptoms) {
-        // Placeholder for OpenAI/Cohere API call
         return "AI analysis placeholder";
     }
 }
