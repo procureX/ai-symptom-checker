@@ -9,6 +9,12 @@ public class SymptomRequest {
     @Size(max = 500, message = "Symptoms too long")
     private String symptoms;
 
+    public SymptomRequest() {} //o‑args constructor needed for JSON deserialization
+
+    public SymptomRequest(String symptoms) {
+        this.symptoms = symptoms;
+    }
+    
     public String getSymptoms() {
         return symptoms;
     }
