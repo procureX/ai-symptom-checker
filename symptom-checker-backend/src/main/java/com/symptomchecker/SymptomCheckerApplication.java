@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SymptomCheckerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SymptomCheckerBackendApplication.class, args);
+		SpringApplication.run(SymptomCheckerApplication.class, args);
 	}
-
 }
