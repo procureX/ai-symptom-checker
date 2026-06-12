@@ -1,4 +1,4 @@
-package com.example.symptomchecker;
+package com.symptomchecker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
