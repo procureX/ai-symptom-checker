@@ -21,7 +21,7 @@ public class SymptomController {
     }
 
     @PostMapping("/symptoms")
-    public SymptomResponse checkSymptoms(@RequestBody SymptomRequest request) {
+    public SymptomResponse checkSymptoms(public SymptomResponse checkSymptoms(@Valid @RequestBody SymptomRequest request) {
         logger.info("Received symptoms: {}", request.getSymptoms());
         return symptomService.analyzeSymptoms(request);
     }
