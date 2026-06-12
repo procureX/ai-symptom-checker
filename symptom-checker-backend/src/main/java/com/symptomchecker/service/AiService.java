@@ -1,4 +1,4 @@
-package com.procurex.symptomchecker.service;
+package com.symptomchecker.service;
 
 import org.springframework.stereotype.Service;
 

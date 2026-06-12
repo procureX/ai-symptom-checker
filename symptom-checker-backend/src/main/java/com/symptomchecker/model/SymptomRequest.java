@@ -1,3 +1,5 @@
+package com.symptomchecker.model;
+
 public class SymptomRequest {
     private String symptoms;
 

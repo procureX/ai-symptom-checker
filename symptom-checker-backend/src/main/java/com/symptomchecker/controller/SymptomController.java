@@ -1,8 +1,8 @@
-package com.procurex.symptomchecker.controller;
+package com.symptomchecker.controller;
 
-import com.procurex.symptomchecker.model.SymptomRequest;
-import com.procurex.symptomchecker.model.SymptomResponse;
-import com.procurex.symptomchecker.service.SymptomService;
+import com.symptomchecker.model.SymptomRequest;
+import com.symptomchecker.model.SymptomResponse;
+import com.symptomchecker.service.SymptomService;
 
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;

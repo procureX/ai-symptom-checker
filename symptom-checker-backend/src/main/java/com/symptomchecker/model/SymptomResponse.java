@@ -1,3 +1,5 @@
+package com.symptomchecker.model;
+
 import java.util.List;
 
 public class SymptomResponse {

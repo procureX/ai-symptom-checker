@@ -1,7 +1,7 @@
-package com.procurex.symptomchecker.service;
+package com.symptomchecker.service;
 
-import com.procurex.symptomchecker.model.SymptomRequest;
-import com.procurex.symptomchecker.model.SymptomResponse;
+import com.symptomchecker.model.SymptomRequest;
+import com.symptomchecker.model.SymptomResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

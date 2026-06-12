@@ -1,4 +1,4 @@
-package com.yourproject.controller;
+package com.symptomchecker.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
