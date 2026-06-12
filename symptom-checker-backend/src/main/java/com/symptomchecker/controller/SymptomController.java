@@ -4,6 +4,8 @@ import com.symptomchecker.model.SymptomRequest;
 import com.symptomchecker.model.SymptomResponse;
 import com.symptomchecker.service.SymptomService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
