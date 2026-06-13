@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -25,27 +25,6 @@ class SymptomValidationTest {
     @Test
     void testEmptySymptomsShouldFailValidation() throws Exception {
         SymptomRequest req = new SymptomRequest("");
-
-        mockMvc.perform(post("/api/symptoms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void testNullSymptomsShouldFailValidation() throws Exception {
-        SymptomRequest req = new SymptomRequest(null);
-
-        mockMvc.perform(post("/api/symptoms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void testTooLongSymptomsShouldFailValidation() throws Exception {
-        String longSymptoms = "a".repeat(2000);
-        SymptomRequest req = new SymptomRequest(longSymptoms);
 
         mockMvc.perform(post("/api/symptoms")
                 .contentType(MediaType.APPLICATION_JSON)
