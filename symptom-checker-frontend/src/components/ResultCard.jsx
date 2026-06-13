@@ -1,13 +1,19 @@
+import React from "react";
+
 function ResultCard({ result }) {
+  if (!result) return null;
+
   return (
-    <div style={{ marginTop: "2rem", padding: "1rem", border: "1px solid #ccc" }}>
+    <div style={{ padding: 15, border: "1px solid #ccc", borderRadius: 8 }}>
       <h3>Possible Conditions:</h3>
       <ul>
         {result.conditions.map((c, i) => (
           <li key={i}>{c}</li>
         ))}
       </ul>
-      <p><strong>Urgency:</strong> {result.urgency}</p>
+
+      <h3>Urgency:</h3>
+      <p>{result.urgency}</p>
     </div>
   );
 }
