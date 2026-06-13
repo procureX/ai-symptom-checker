@@ -1,51 +1,52 @@
 package com.symptomchecker.service;
 
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestClient;
 
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
 
 class AiServiceTest {
 
+    private MockWebServer mockWebServer;
     private AiService aiService;
-    private MockRestServiceServer mockServer;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
+        mockWebServer = new MockWebServer();
+        mockWebServer.start();
+
         RestClient restClient = RestClient.builder()
-                .baseUrl("http://localhost:11434")
+                .baseUrl(mockWebServer.url("/").toString())
                 .build();
 
         aiService = new AiService(restClient);
+    }
 
-        mockServer = MockRestServiceServer.bindTo(restClient).build();
+    @AfterEach
+    void tearDown() throws Exception {
+        mockWebServer.shutdown();
     }
 
     @Test
-    void testAiAnalysisReturnsJson() {
+    void testAiAnalysisReturnsJson() throws Exception {
         String mockResponse = """
             {
               "response": "{\\"conditions\\":[\\"Flu\\",\\"Cold\\"], \\"urgency\\":\\"Medium\\"}"
             }
             """;
 
-        mockServer.expect(requestTo("http://localhost:11434/api/generate"))
-                .andExpect(method(org.springframework.http.HttpMethod.POST))
-                .andRespond(withSuccess(mockResponse, MediaType.APPLICATION_JSON));
+        mockWebServer.enqueue(new MockResponse()
+                .setBody(mockResponse)
+                .addHeader("Content-Type", "application/json"));
 
         String result = aiService.getAiAnalysis("fever and cough");
 
         assertNotNull(result);
         assertTrue(result.contains("conditions"));
         assertTrue(result.contains("urgency"));
-
-        mockServer.verify();
     }
 }
