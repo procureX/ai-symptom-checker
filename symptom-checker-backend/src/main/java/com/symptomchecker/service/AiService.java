@@ -10,6 +10,10 @@ public class AiService {
 
     private final RestClient restClient;
 
+    public AiService(RestClient restClient) {
+        this.restClient = restClient;
+    }
+
     public AiService() {
         this.restClient = RestClient.builder()
                 .baseUrl("http://localhost:11434")
