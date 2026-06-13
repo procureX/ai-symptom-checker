@@ -18,11 +18,8 @@ class SymptomServiceTest {
     void testAnalyzeSymptomsReturnsDummyData() {
         SymptomRequest request = new SymptomRequest("fever");
 
-        Mockito.when(aiService.analyzeSymptoms("fever"))
-                .thenReturn(new SymptomResponse(
-                        List.of("Common cold", "Flu"),
-                        "Low"
-                ));
+        Mockito.when(aiService.getAiAnalysis("fever"))
+                .thenReturn("AI analysis placeholder");
 
         SymptomResponse response = symptomService.analyzeSymptoms(request);
 
@@ -35,11 +32,8 @@ class SymptomServiceTest {
     void testAnalyzeSymptomsWithEmptyInput() {
         SymptomRequest request = new SymptomRequest("");
 
-        Mockito.when(aiService.analyzeSymptoms(""))
-                .thenReturn(new SymptomResponse(
-                        List.of("Common cold", "Flu"),
-                        "Low"
-                ));
+        Mockito.when(aiService.getAiAnalysis(""))
+                .thenReturn("AI analysis placeholder");
 
         SymptomResponse response = symptomService.analyzeSymptoms(request);
 
@@ -51,11 +45,8 @@ class SymptomServiceTest {
     void testAnalyzeSymptomsWithNullInput() {
         SymptomRequest request = new SymptomRequest(null);
 
-        Mockito.when(aiService.analyzeSymptoms(null))
-                .thenReturn(new SymptomResponse(
-                        List.of("Common cold", "Flu"),
-                        "Low"
-                ));
+        Mockito.when(aiService.getAiAnalysis(null))
+                .thenReturn("AI analysis placeholder");
 
         SymptomResponse response = symptomService.analyzeSymptoms(request);
 
