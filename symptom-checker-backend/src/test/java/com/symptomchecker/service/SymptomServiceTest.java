@@ -3,54 +3,48 @@ package com.symptomchecker.service;
 import com.symptomchecker.model.SymptomRequest;
 import com.symptomchecker.model.SymptomResponse;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class SymptomServiceTest {
 
-    private final AiService aiService = Mockito.mock(AiService.class);
-    private final SymptomService symptomService = new SymptomService(aiService);
-
     @Test
-    void testAnalyzeSymptomsReturnsDummyData() {
-        SymptomRequest request = new SymptomRequest("fever");
+    void testAnalyzeSymptomsParsesAiJsonCorrectly() throws Exception {
+        AiService aiService = mock(AiService.class);
 
-        Mockito.when(aiService.getAiAnalysis("fever"))
-                .thenReturn("AI analysis placeholder");
+        String aiJson = """
+            {
+              "conditions": ["Flu", "Cold"],
+              "urgency": "Medium"
+            }
+            """;
 
-        SymptomResponse response = symptomService.analyzeSymptoms(request);
+        when(aiService.getAiAnalysis("fever and cough")).thenReturn(aiJson);
 
-        assertNotNull(response);
-        assertEquals("Low", response.getUrgency());
-        assertFalse(response.getConditions().isEmpty());
+        SymptomService service = new SymptomService(aiService);
+
+        SymptomRequest request = new SymptomRequest("fever and cough");
+        SymptomResponse response = service.analyzeSymptoms(request);
+
+        assertEquals(List.of("Flu", "Cold"), response.getConditions());
+        assertEquals("Medium", response.getUrgency());
     }
 
     @Test
-    void testAnalyzeSymptomsWithEmptyInput() {
-        SymptomRequest request = new SymptomRequest("");
+    void testAnalyzeSymptomsHandlesAiFailure() throws Exception {
+        AiService aiService = mock(AiService.class);
 
-        Mockito.when(aiService.getAiAnalysis(""))
-                .thenReturn("AI analysis placeholder");
+        when(aiService.getAiAnalysis(anyString())).thenThrow(new RuntimeException("AI error"));
 
-        SymptomResponse response = symptomService.analyzeSymptoms(request);
+        SymptomService service = new SymptomService(aiService);
 
-        assertNotNull(response);
-        assertEquals("Low", response.getUrgency());
-    }
+        SymptomRequest request = new SymptomRequest("anything");
+        SymptomResponse response = service.analyzeSymptoms(request);
 
-    @Test
-    void testAnalyzeSymptomsWithNullInput() {
-        SymptomRequest request = new SymptomRequest(null);
-
-        Mockito.when(aiService.getAiAnalysis(null))
-                .thenReturn("AI analysis placeholder");
-
-        SymptomResponse response = symptomService.analyzeSymptoms(request);
-
-        assertNotNull(response);
-        assertEquals("Low", response.getUrgency());
+        assertEquals(List.of("Unable to analyze symptoms"), response.getConditions());
+        assertEquals("Unknown", response.getUrgency());
     }
 }
