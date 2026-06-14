@@ -32,12 +32,21 @@ public class AiService {
                 .body(Map.class);
 
         String raw = (String) response.get("response");
-        
-        // raw is a JSON string → parse it
-        Map<String, Object> parsed = new ObjectMapper().readValue(raw, Map.class);
-        
-        // return the parsed JSON as a real JSON string
-        return new ObjectMapper().writeValueAsString(parsed);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            
+            // raw is a JSON string → parse it
+            Map<String, Object> parsed = mapper.readValue(raw, Map.class);
+            // return proper JSON
+            return mapper.writeValueAsString(parsed);
+        } catch (Exception e) {
+            // If parsing fails, return fallback JSON
+            return """{
+            "conditions": ["Unable to analyze symptoms"],
+            "urgency": "Unknown"
+            }""";
+        }
     }
 
     private String buildPrompt(String symptoms) {
