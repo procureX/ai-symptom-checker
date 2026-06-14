@@ -30,7 +30,13 @@ public class AiService {
                 .retrieve()
                 .body(Map.class);
 
-        return (String) response.get("response");
+        String raw = (String) response.get("response");
+        
+        // raw is a JSON string → parse it
+        Map<String, Object> parsed = new ObjectMapper().readValue(raw, Map.class);
+        
+        // return the parsed JSON as a real JSON string
+        return new ObjectMapper().writeValueAsString(parsed);
     }
 
     private String buildPrompt(String symptoms) {

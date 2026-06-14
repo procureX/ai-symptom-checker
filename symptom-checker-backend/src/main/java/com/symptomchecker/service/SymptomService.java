@@ -23,7 +23,11 @@ public class SymptomService {
         try {
             String aiOutput = aiService.getAiAnalysis(request.getSymptoms());
 
-            Map<String, Object> json = mapper.readValue(aiOutput, Map.class);
+            // aiOutput is a JSON string inside a string → parse it twice
+            String cleaned = aiOutput.trim();
+
+            // First parse the outer string (already done by AiService)
+            Map<String, Object> json = mapper.readValue(cleaned, Map.class);
 
             List<String> conditions = (List<String>) json.get("conditions");
             String urgency = (String) json.get("urgency");
