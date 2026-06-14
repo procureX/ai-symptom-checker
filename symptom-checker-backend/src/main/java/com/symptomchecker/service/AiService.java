@@ -2,6 +2,7 @@ package com.symptomchecker.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
