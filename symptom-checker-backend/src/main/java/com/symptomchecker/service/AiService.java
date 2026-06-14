@@ -42,10 +42,12 @@ public class AiService {
             return mapper.writeValueAsString(parsed);
         } catch (Exception e) {
             // If parsing fails, return fallback JSON
-            return """{
+            return """
+            {
             "conditions": ["Unable to analyze symptoms"],
             "urgency": "Unknown"
-            }""";
+            }
+            """;
         }
     }
 
