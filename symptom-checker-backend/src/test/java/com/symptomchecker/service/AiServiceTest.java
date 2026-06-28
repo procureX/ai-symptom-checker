@@ -23,7 +23,7 @@ class AiServiceTest {
                 .baseUrl(mockWebServer.url("/").toString())
                 .build();
 
-        aiService = new AiService(restClient);
+        aiService = new AiService();
     }
 
     @AfterEach
