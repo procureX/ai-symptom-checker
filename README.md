@@ -3,7 +3,7 @@ AI Symptom Checker
 A privacy-first, full-stack medical symptom analysis application built using **Spring Boot**, **React**, and **Ollama**. This project leverages a localized **MedLlama2** LLM to evaluate user-submitted symptoms and provide potential conditions alongside a calculated urgency triage rating—ensuring **100% data confidentiality** by processing all healthcare inputs entirely on the local machine.
 ![AI Symptom Checker Interface](./assets/app-ui.png)
 
-##🏗️ Architecture & Core Concepts
+## 🏗️ Architecture & Core Concepts
 
 Instead of routing sensitive, private health information to third-party cloud APIs (like OpenAI or Anthropic), this application serves as a proof-of-concept for localized, compliance-focused AI operations.
 
